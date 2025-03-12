@@ -8,9 +8,22 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.3.0",
     "react-scripts": "^5.0.1"
-  }, "scripts": {
+  },
+  "scripts": {
     "start": "react-scripts start",
     "start-mac": "PORT=3010 react-scripts start",
     "start-windows": "set PORT=3010 && react-scripts start"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
