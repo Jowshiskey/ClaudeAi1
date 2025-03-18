@@ -1,12 +1,14 @@
 import React from "react";
 import ImageInput from "./ImageInput";
+import CameraSelector from "./CameraSelector";
 
 const Home = () => {
 
       return( 
       <div className="Home_main">
-          <ImageInput/>
-          <p>this is the home page</p>
+        <ImageInput/>
+        <CameraSelector/>
+        <p>this is the home page</p>
           
       </div>)
 
