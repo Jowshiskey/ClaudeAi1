@@ -1,9 +1,10 @@
 import React from "react";
+import HomePage from "./Home";
 
 const App = () => {
     return ( 
         <div>
-            <p> start with this !</p>
+            <HomePage/>
         </div>
     )
 }
