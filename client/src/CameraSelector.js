@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const CameraSelector = () => {
   const [devices, setDevices] = useState([]);
-  const [selectedDevice, setSelectedDevice] = useState(null);
+  const [selectedDevice, setSelectedDevice] = useState("Choose");
   const [stream, setStream] = useState(null);
   const [error, setError] = useState(null);
 
@@ -62,14 +62,13 @@ const CameraSelector = () => {
   // Handle device selection change
   const handleDeviceChange = (e) => {
     setSelectedDevice(e.target.value);
-    console.log(selectedDevice);
   };
 
   const handleDeviceReset = (e) => {
     if (stream) {
       stream.getTracks().forEach(track => track.stop());
       setStream(null);
-      setSelectedDevice("");
+      setSelectedDevice("Choose");
       
       // const videoElement = document.getElementById('camera-preview');
       // if (videoElement) {
@@ -77,21 +76,56 @@ const CameraSelector = () => {
       // }
     }
   };
-
+  const handleCameraSnapShot = () => {
+    if (selectedDevice) {
+      // You can add additional logic here, like taking a photo
+      alert('Camera selected: ' + 
+        (devices.find(d => d.deviceId === selectedDevice)?.label || 'Unknown device'));
+    }
+  }
+console.log(selectedDevice);
+  if(selectedDevice === "Choose") {
+  return (
+    <div className="">
+      <div className="">
+        <div className="">
+          <h2 className="">Camera Selector</h2>
+        </div>
+        {/* <div className="">
+          <button className="" onClick={handleDeviceReset} disabled={""}>Stop Camera</button>
+        </div>  */}
+      </div>
+      <div className="">
+          <label for="cameraInput">Select Camera Device:</label>
+          <select className="cameraInput" name="cameraInput" id="cameraInput" onChange={handleDeviceChange} disabled={devices.length === 0} >
+            {devices.length === 0 ? <option value="">No camera devices found</option> : <option value="Choose">Pick a Camera</option>}
+            {devices.map(device => (
+              <option key={device.deviceId} value={device.deviceId}>{device.label || `Camera ${devices.indexOf(device) + 1}`}</option>
+            ))}
+          </select>
+          {/* <div className="">
+            <video id="camera-preview" className="" autoPlay playsInline />
+          </div> */}
+      </div>
+      {/* <div className="flex justify-between">
+        <button className="" onClick={handleCameraSnapShot} disabled={!selectedDevice} >Confirm Selection</button>
+      </div> */}
+    </div>
+  );
+} else {
   return (
     <div className="">
       <div className="">
         <h2 className="">Camera Selector</h2>
-      </div>
-  {selectedDevice === "Choose" ? 
-  <div className="">
-      <div className="">
-        <h2 className="">Camera Selector</h2>
-      </div>
-      <div className="">
-        <button className="" onClick={handleDeviceReset} disabled={""}>Stop Camera</button>
       </div> 
-    :
+      <div className="">
+        <div className="">
+          <h2 className="">Camera Selector</h2>
+        </div>
+        <div className="">
+          <button className="" onClick={handleDeviceReset} disabled={""}>Stop Camera</button>
+        </div> 
+      </div>
       <div className="">
           <label for="cameraInput">Select Camera Device:</label>
           <select className="cameraInput" name="cameraInput" id="cameraInput" onChange={handleDeviceChange} disabled={devices.length === 0} >
@@ -103,26 +137,14 @@ const CameraSelector = () => {
           <div className="">
             <video id="camera-preview" className="" autoPlay playsInline />
           </div>
-        </div> 
-      }
-
-
-
+      </div>
       <div className="flex justify-between">
-        <button className="" onClick={() => {
-            if (selectedDevice) {
-              // You can add additional logic here, like taking a photo
-              alert('Camera selected: ' + 
-                (devices.find(d => d.deviceId === selectedDevice)?.label || 'Unknown device'));
-            }
-          }}
-          disabled={!selectedDevice}
-        >
-          Confirm Selection
-        </button>
+        <button className="" onClick={handleCameraSnapShot} disabled={!selectedDevice} >Confirm Selection</button>
       </div>
     </div>
   );
+}
+  
 };
 
 export default CameraSelector;
